@@ -1,25 +1,25 @@
 import './App.css';
 import axios from 'axios';
-import Greetings from './components/greetings';
 import React, { useState, useEffect } from 'react';
+import Greetings from './components/greetings';
 
 const API_URL = 'http://localhost:3000/api/v1/greetings';
 
 function getApiData() {
-  return axios.get(API_URL).then((response) => response.data)
+  return axios.get(API_URL).then((response) => response.data);
 }
 
 function App() {
   const [greetings, setGreetings] = useState([]);
 
   useEffect(() => {
-    let mounted = true;
+    const mounted = true;
     getApiData().then((items) => {
-      if(mounted) {
+      if (mounted) {
         setGreetings(items);
       }
     });
-    return () => mounted = false;
+    return () => (mounted === false);
   }, []);
 
   return (
