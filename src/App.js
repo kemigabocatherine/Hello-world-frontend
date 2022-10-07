@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import Greetings from './components/greetings';
+
+const API_URL = 'http://localhost:3000/api/v1/greetings';
+
+function getApiData() {
+  return axios.get(API_URL).then((response) => response.data);
+}
 
 function App() {
+  const [greetings, setGreetings] = useState([]);
+
+  useEffect(() => {
+    const mounted = true;
+    getApiData().then((items) => {
+      if (mounted) {
+        setGreetings(items);
+      }
+    });
+    return () => (mounted === false);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello</h1>
+      <Greetings greetings={greetings} />
     </div>
   );
 }
