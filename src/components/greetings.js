@@ -1,8 +1,16 @@
 import React from 'react'
 
-function Greetings() {
+function Greetings(props) {
   return (
-    <div>greetings</div>
+    <div>
+      {props.greetings.map((greeting) => {
+        return (
+          <div key={greeting.id}>
+            <p>{greeting.message}</p>
+          </div>
+        );
+      })}
+    </div>
   )
 }
 
